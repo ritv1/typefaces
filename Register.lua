@@ -36,6 +36,7 @@ Typeface.WeightNum = {
 	["Heavy"	] = 900
 }
 
+-- // Functions
 function Typeface:Register(Path, Asset)
 	if Typeface.Denied then return warn("Executor is Incompatible For Custom Typeface") end
 
