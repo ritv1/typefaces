@@ -11,7 +11,7 @@ local Font = Register:Register("Typefaces", {
 ```
 
 ## Fonts
-- Tahoma Raw
+- Tahoma
 - Verdana
 - Minecraftia
 - Proggy
