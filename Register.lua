@@ -43,21 +43,20 @@ function Typeface:Register(Path, Asset)
 	local Directory = `{ Path or "" }/{ Asset.name }`
 	local Name = `{ Asset.name }{ Asset.weight }{ Asset.style }`
 
-    if not isfolder(`{ Directory }`) then
-        makefolder(`{ Directory }`)
+    if not isfolder(Directory) then
+        makefolder(Directory)
     end
 
-    if not isfile(`{ Directory }/{ Name }.ttf`) then
-		writefile(`{ Directory }/{ Name }.ttf`, base64_decode(Asset.ttf))
-        print(writefile(`{ Directory }/{ Name }.ttf`, "poo"))
-    end
+    if not isfile(`{ Directory }/{ Name }.font`) then
+		writefile(`{ Directory }/{ Name }.font`, game:HttpGet(Asset.link))
+	end
 
     if not isfile(`{ Directory }/Families.json`) then 
 		local Data = { 
 			name = `{ Asset.weight } { Asset.style }`,
 			weight = Typeface.WeightNum[Asset.weight] or Typeface.WeightNum[string.gsub(Asset.weight, "%s+", "")],
 			style = string.lower(Asset.style),
-			assetId = getcustomasset(`{ Directory }/{ Name }.ttf`)
+			assetId = getcustomasset(`{ Directory }/{ Name }.font`)
 		 }
 		
 		local JSONFile = Http:JSONEncode({ name = Asset.name, faces = { Data } })
@@ -70,7 +69,7 @@ function Typeface:Register(Path, Asset)
 			name = `{ Asset.weight } { Asset.style }`,
 			weight = Typeface.WeightNum[Asset.weight] or Typeface.WeightNum[string.gsub(Asset.weight, "%s+", "")],
 			style = string.lower(Asset.style),
-			assetId = getcustomasset(`{ Directory }/{ Name }.ttf`)
+			assetId = getcustomasset(`{ Directory }/{ Name }.font`)
 		 }
 
 		table.insert(JSONFile.faces, Data)
