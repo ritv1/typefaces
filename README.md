@@ -2,6 +2,7 @@
 ## How-To-Use
 ```lua
 local Typeface = loadstring(game:HttpGet("https://github.com/ritv1/typefaces/raw/refs/heads/main/Register.lua"))()
+
 local Font = Register:Register("Typefaces", {
   name = "ProggyClean",
   weight = "Regular",
