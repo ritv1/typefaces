@@ -13,27 +13,27 @@ local Http = cloneref and cloneref(game:GetService 'HttpService') or game:GetSer
 -- // Tables
 Typeface.Typefaces = {  }
 Typeface.WeightNum = { 
-	["Thin"			] = 100,
+	["Thin"] = 100,
 
-	["ExtraLight"	] = 200, 
-	["UltraLight"	] = 200,
+	["ExtraLight"] = 200, 
+	["UltraLight"] = 200,
 
-	["Light"		] = 300,
+	["Light"] = 300,
 
-	["Normal"		] = 400,
-	["Regular"		] = 400,
+	["Normal"] = 400,
+	["Regular"] = 400,
 
-	["Medium"		] = 500,
+	["Medium"] = 500,
 
-	["SemiBold"		] = 600,
-	["DemiBold"		] = 600,
+	["SemiBold"] = 600,
+	["DemiBold"] = 600,
 
-	["Bold"			] = 700,
+	["Bold"] = 700,
 
-	["ExtraBold"	] = 800,
+	["ExtraBold"] = 800,
 
-	["UltraBold"	] = 900,
-	["Heavy"		] = 900
+	["UltraBold"] = 900,
+	["Heavy"] = 900
 }
 
 -- // Functions
