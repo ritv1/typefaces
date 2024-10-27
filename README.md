@@ -1,7 +1,7 @@
 # Custom Typefaces for ROBLOX
 ## How-To-Use
 ```lua
-local Typeface = loadstring(game:HttpGet("https://github.com/ritv1/typefaces/raw/refs/heads/main/Register.lua"))()
+local Typeface = loadstring(game:HttpGet("https://raw.githubusercontent.com/ritv1/typefaces/refs/heads/main/Register.lua"))()
 
 local Font = Register:Register("Typefaces", {
   name = "ProggyClean",
