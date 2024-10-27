@@ -66,14 +66,14 @@ function Typeface:Register(Path, Asset)
 		local JSONFile = Http:JSONDecode(readfile(`{ Directory }/{ Asset.name }Families.json`))
 
 		local Data = { 
-			name = `{ Asset.weight } { Asset.style }`,
-			weight = Typeface.WeightNum[Asset.weight] or Typeface.WeightNum[string.gsub(Asset.weight, "%s+", "")],
-			style = string.lower(Asset.style),
-			assetId = getcustomasset(`{ Directory }/{ Name }.font`)
-		 }
+            name = `{ Asset.weight } { Asset.style }`,
+            weight = Typeface.WeightNum[Asset.weight] or Typeface.WeightNum[string.gsub(Asset.weight, "%s+", "")],
+            style = string.lower(Asset.style),
+            assetId = getcustomasset(`{ Directory }/{ Name }.font`)
+		}
 
 		table.insert(JSONFile.faces, Data)
-		JSONFile = Http:JSONEncode({ name = Asset.name, faces = { Data } })
+		JSONFile = Http:JSONEncode(JSONFile)
 
 		writefile(`{ Directory }/{ Asset.name }Families.json`, JSONFile)
 	end
@@ -82,4 +82,18 @@ function Typeface:Register(Path, Asset)
     return Typeface.Typefaces[Name]
 end
 
-return Typeface
+-- // Returns in Font.new
+
+local Font = Typeface:Register("Typefaces", {
+    name = "ProggyClean",
+    weight = "Regular",
+    style = "Normal",
+    link = "https://github.com/ritv1/typefaces/raw/refs/heads/main/fonts/ProggyClean.ttf",
+})
+
+local Font = Typeface:Register("Typefaces", {
+    name = "ProggyClean",
+    weight = "Thin",
+    style = "Normal",
+    link = "https://github.com/ritv1/typefaces/raw/refs/heads/main/fonts/ProggyTiny.ttf",
+})
