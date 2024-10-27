@@ -4,7 +4,6 @@ local Typeface = {  }
 	Typeface.Incompatible		= function() Typeface.Denied = true end
 
 	getcustomasset 			= getcustomasset or Typeface.Incompatible()
-	base64_decode 			= base64_decode or crypt and crypt.base64decode or Typeface.Incompatible()
 end
 
 -- // Variables
