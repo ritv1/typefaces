@@ -43,9 +43,14 @@ function Typeface:Register(Path, Asset)
 	local Directory = `{ Path or "" }/{ Asset.name }`
 	local Name = `{ Asset.name }{ Asset.weight }{ Asset.style }`
 
+    if not isfolder(`{ Directory }`) then
+        makefolder(`{ Directory }`)
+    end
+
     if not isfile(`{ Directory }/{ Name }.ttf`) then
-		writefile(`{ Directory }/{ Name }.ttf`, base64_decode(game:HttpGet(Asset.ttf)))
-	end
+		writefile(`{ Directory }/{ Name }.ttf`, base64_decode(Asset.ttf))
+        print(writefile(`{ Directory }/{ Name }.ttf`, "poo"))
+    end
 
     if not isfile(`{ Directory }/Families.json`) then 
 		local Data = { 
