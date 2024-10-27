@@ -82,18 +82,4 @@ function Typeface:Register(Path, Asset)
     return Typeface.Typefaces[Name]
 end
 
--- // Returns in Font.new
-
-local Font = Typeface:Register("Typefaces", {
-    name = "ProggyClean",
-    weight = "Regular",
-    style = "Normal",
-    link = "https://github.com/ritv1/typefaces/raw/refs/heads/main/fonts/ProggyClean.ttf",
-})
-
-local Font = Typeface:Register("Typefaces", {
-    name = "ProggyClean",
-    weight = "Thin",
-    style = "Normal",
-    link = "https://github.com/ritv1/typefaces/raw/refs/heads/main/fonts/ProggyTiny.ttf",
-})
+return Typeface
