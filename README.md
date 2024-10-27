@@ -6,7 +6,7 @@ local Typeface = loadstring(game:HttpGet("https://raw.githubusercontent.com/ritv
 local Font = Register:Register("Typefaces", {
   name = "ProggyClean",
   weight = "Regular",
-  style = "Normal"
+  style = "Normal",
   ttf = game:HttpGet("https://github.com/ritv1/typefaces/raw/refs/heads/main/fonts/ProggyClean.ttf"),
 }) -- Returns in Font.new 
 ```
