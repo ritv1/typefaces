@@ -37,17 +37,36 @@ Typeface.WeightNum = {
 
 -- // Functions
 function Typeface:Register(Path, Asset)
-	if Typeface.Denied then return warn("Executor is Incompatible For Custom Typeface") end
+	Asset = Asset or {}
+
+    Asset.weight = Asset.weight or "Regular"
+    Asset.style = Asset.style or "Normal"
+
+    if not Asset.link then return warn("link is required to Register a Typeface!") end
+	if not Asset.name then return warn("link is required to Register a Typeface!") end
+	if Typeface.Denied then return warn("Executor is Incompatible For Custom Typeface!") end
 
 	local Directory = `{ Path or "" }/{ Asset.name }`
-	local Name = `{ Asset.name }{ Asset.weight }{ Asset.style }`
+
+    local Weight = Typeface.WeightNum[Asset.weight] == 400 and "" or Asset.weight
+    local Style = string.lower(Asset.style) == "normal" and "" or Asset.style
+	local Name = `{ Asset.name }{ Weight }{ Style }`
 
     if not isfolder(Directory) then
         makefolder(Directory)
     end
 
     if not isfile(`{ Directory }/{ Name }.font`) then
-		writefile(`{ Directory }/{ Name }.font`, game:HttpGet(Asset.link))
+		local content = request({
+			Url = Asset.link,
+			Method = "GET",
+		})
+
+		if content.Success and content.StatusCode == 200 then
+			writefile(`{ Directory }/{ Name }.font`, content.Body)
+		else
+            warn(`Unable to get content from "{ Asset.link }"`)
+        end
 	end
 
     if not isfile(`{ Directory }/{ Asset.name }Families.json`) then 
@@ -56,14 +75,16 @@ function Typeface:Register(Path, Asset)
 			weight = Typeface.WeightNum[Asset.weight] or Typeface.WeightNum[string.gsub(Asset.weight, "%s+", "")],
 			style = string.lower(Asset.style),
 			assetId = getcustomasset(`{ Directory }/{ Name }.font`)
-		 }
-		
-		local JSONFile = Http:JSONEncode({ name = Asset.name, faces = { Data } })
+		}
+
+		local JSONFile = Http:JSONEncode({ name = Name, faces = { Data } })
+
+        warn(`Registering { Asset.name } Typeface...`)
 
 		writefile(`{ Directory }/{ Asset.name }Families.json`, JSONFile)
 	else
-		local JSONFile = Http:JSONDecode(readfile(`{ Directory }/{ Asset.name }Families.json`))
-
+		local Registered = false
+        local JSONFile = Http:JSONDecode(readfile(`{ Directory }/{ Asset.name }Families.json`))
 		local Data = { 
             name = `{ Asset.weight } { Asset.style }`,
             weight = Typeface.WeightNum[Asset.weight] or Typeface.WeightNum[string.gsub(Asset.weight, "%s+", "")],
@@ -71,10 +92,19 @@ function Typeface:Register(Path, Asset)
             assetId = getcustomasset(`{ Directory }/{ Name }.font`)
 		}
 
-		table.insert(JSONFile.faces, Data)
-		JSONFile = Http:JSONEncode(JSONFile)
+        for _, v in JSONFile.faces do
+            if v.name == Data.name then Registered = true end
+        end
 
-		writefile(`{ Directory }/{ Asset.name }Families.json`, JSONFile)
+        if not Registered then
+            table.insert(JSONFile.faces, Data)
+            JSONFile = Http:JSONEncode(JSONFile)
+
+            warn(`Registering { Asset.weight } { Asset.style } to Typeface...`)
+
+            writefile(`{ Directory }/{ Asset.name }Families.json`, JSONFile)
+        end
+        
 	end
 
 	Typeface.Typefaces[Name] = Typeface.Typefaces[Name] or Font.new(getcustomasset(`{ Directory }/{ Asset.name }Families.json`))
