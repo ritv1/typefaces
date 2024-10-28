@@ -1,9 +1,13 @@
 local Typeface = {  }
 
 --[[ Compatibility Check ]] do
-	Typeface.Incompatible		= function() Typeface.Denied = true end
+	Typeface.Incompatible	= function() Typeface.Denied = true end
 
-	getcustomasset 			= getcustomasset or Typeface.Incompatible()
+    isfile                  = isfile or Typeface.Incompatible()
+    isfolder                = isfolder or Typeface.Incompatible()
+    writefile               = writefile or Typeface.Incompatible()
+    makefolder              = makefolder or Typeface.Incompatible()
+    getcustomasset 			= getcustomasset or Typeface.Incompatible()
 end
 
 -- // Variables
