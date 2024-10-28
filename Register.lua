@@ -87,7 +87,7 @@ function Typeface:Register(Path, Asset)
 
 		local JSONFile = Http:JSONEncode({ name = Name, faces = { Data } })
 
-        warn(`Registering { Asset.name } Typeface to "{ Directory }"...`)
+        warn(`Registering { Asset.name } Typeface to "{ Path }"...`)
 
 		writefile(`{ Directory }/{ Asset.name }Families.json`, JSONFile)
 	else
