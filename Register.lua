@@ -65,16 +65,7 @@ function Typeface:Register(Path, Asset)
     end
 
     if not isfile(`{ Directory }/{ Name }.font`) then
-		local content = request({
-			Url = Asset.link,
-			Method = "GET",
-		})
-
-		if content.Success and content.StatusCode == 200 then
-			writefile(`{ Directory }/{ Name }.font`, content.Body)
-		else
-            warn(`Unable to get content from "{ Asset.link }"`)
-        end
+		writefile(`{ Directory }/{ Name }.font`, game:HttpGet(Asset.link))
 	end
 
     if not isfile(`{ Directory }/{ Asset.name }Families.json`) then 
