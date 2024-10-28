@@ -46,9 +46,13 @@ function Typeface:Register(Path, Asset)
     Asset.weight = Asset.weight or "Regular"
     Asset.style = Asset.style or "Normal"
 
-    if not Asset.link then return warn("link is required to Register a Typeface!") end
-	if not Asset.name then return warn("link is required to Register a Typeface!") end
-	if Typeface.Denied then return warn("Executor is Incompatible For Custom Typeface!") end
+    if not Asset.link or not Asset.name then 
+        return warn(`{ not Asset.link and "link " or "" }{ not Asset.name and "name " or ""}is required to Register a Typeface!`) 
+    end
+
+	if Typeface.Denied then 
+        return warn("Executor is Incompatible For Custom Typeface!") 
+    end
 
 	local Directory = `{ Path or "" }/{ Asset.name }`
 
@@ -83,7 +87,7 @@ function Typeface:Register(Path, Asset)
 
 		local JSONFile = Http:JSONEncode({ name = Name, faces = { Data } })
 
-        warn(`Registering { Asset.name } Typeface...`)
+        warn(`Registering { Asset.name } Typeface to "{ Directory }"...`)
 
 		writefile(`{ Directory }/{ Asset.name }Families.json`, JSONFile)
 	else
@@ -104,7 +108,7 @@ function Typeface:Register(Path, Asset)
             table.insert(JSONFile.faces, Data)
             JSONFile = Http:JSONEncode(JSONFile)
 
-            warn(`Registering { Asset.weight } { Asset.style } to Typeface...`)
+            warn(`Registering { Asset.weight } { Asset.style } Typeface to "{ Directory }"...`)
 
             writefile(`{ Directory }/{ Asset.name }Families.json`, JSONFile)
         end
