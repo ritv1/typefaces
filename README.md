@@ -14,9 +14,10 @@ local Font = Typeface:Register("Typefaces", {
 
 ## Fonts
 - Tahoma
+- Tahoma XP
 - Verdana
 - Minecraftia
-- Proggy
+- Proggy Clean
 - Proggy Tiny
 ## Icons
 - Badcache
